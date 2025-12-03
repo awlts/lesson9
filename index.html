@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>シンプルブログ + カレンダー</title>
+  <title>Simple Memo + Calendar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -12,12 +12,12 @@
     <header class="site-header">
       <div class="site-header-inner">
         <div class="site-title-block">
-          <h1 class="site-title">My Simple Blog</h1>
-          <p class="site-subtitle">レスポンシブなレイアウト + カレンダー表示</p>
+          <h1 class="site-title">My Notes</h1>
+          <p class="site-subtitle">メモ & カレンダー</p>
         </div>
         <nav class="site-nav">
           <a href="#main">記事</a>
-          <a href="#profile">プロフィール</a>
+          <a href="#memo">メモ</a>
           <a href="#calendar">カレンダー</a>
         </nav>
       </div>
@@ -28,67 +28,48 @@
       <!-- メインコンテンツ -->
       <article id="main" class="main-content">
         <section class="post">
-          <h2 class="post-title">はじめてのレスポンシブ Web ページ</h2>
-          <p class="post-meta">2025-12-04 / カテゴリ: Web制作メモ</p>
+          <h2 class="post-title">タイトル</h2>
+          <p class="post-meta">2025-12-04</p>
 
-          <p>
-            このページは、HTML / CSS / JavaScript だけで構成された
-            シンプルなブログ風レイアウトの例です。画面が狭いときは
-            上から <strong>記事 → サイドバー</strong> の順に縦並び、
-            画面が広いときは <strong>記事 + サイドバーの2カラム</strong>
-            に切り替わります。
-          </p>
-
-          <p>
-            サイドバーには、プロフィールと、JavaScript の
-            <code>Date</code> API を使って生成した
-            「<strong>現在の月のカレンダー</strong>」を表示しています。
-            API や日付情報を扱う練習としても使えます。
-          </p>
-
-          <h3>このサンプルで試せること</h3>
-          <ul>
-            <li>基本的なレスポンシブレイアウト（flex + media query）</li>
-            <li>ブログ風の見出し・本文レイアウト</li>
-            <li>JavaScript で DOM を操作してカレンダーを描画</li>
-          </ul>
-
-          <p>
-            コードを少しずつ書き換えて、色・フォント・構成を
-            自分好みにカスタマイズしてみてください。
-          </p>
+          <p>文章を書くスペース。</p>
+          <p>必要な内容だけを書きます。</p>
         </section>
       </article>
 
       <!-- サイドバー -->
       <aside class="sidebar">
-        <!-- プロフィール -->
-        <section id="profile" class="sidebar-section profile-card">
-          <h2 class="sidebar-title">プロフィール</h2>
-          <p class="profile-name">Your Name</p>
-          <p class="profile-text">
-            Web制作やゲーム開発の学習メモをまとめている個人ブログです。<br />
-            フロントエンド・UI・ツール周りを中心に、少しずつ記事を追加していきます。
-          </p>
+        <!-- メモ -->
+        <section id="memo" class="sidebar-section memo-card">
+          <h2 class="sidebar-title">メモ</h2>
+
+          <form id="memo-form" class="memo-form">
+            <textarea
+              id="memo-input"
+              class="memo-input"
+              rows="3"
+              placeholder="メモを入力"
+            ></textarea>
+            <button type="submit" class="memo-add-button">追加</button>
+          </form>
+
+          <ul id="memo-list" class="memo-list">
+            <!-- JS でメモを追加 -->
+          </ul>
         </section>
 
         <!-- カレンダー -->
         <section id="calendar" class="sidebar-section calendar-card">
           <h2 class="sidebar-title">カレンダー</h2>
           <div id="calendar-root" class="calendar-root">
-            <!-- JavaScript で中身を自動生成 -->
+            <!-- JS でカレンダーを描画 -->
           </div>
-          <p class="calendar-note">
-            ※表示されているのは「現在の月」です。<br />
-            Date API を利用して自動更新しています。
-          </p>
         </section>
       </aside>
     </main>
 
     <!-- フッター -->
     <footer class="site-footer">
-      <p>© 2025 Your Name / Built with HTML + CSS + JavaScript</p>
+      <p>© 2025</p>
     </footer>
   </div>
 
