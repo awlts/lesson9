@@ -1,0 +1,364 @@
+/* ===============================
+   ベーススタイル
+   =============================== */
+
+:root {
+  --bg: #0f172a;
+  --bg-elevated: #111827;
+  --bg-accent-soft: rgba(56, 189, 248, 0.08);
+  --border-subtle: rgba(148, 163, 184, 0.35);
+  --border-strong: rgba(148, 163, 184, 0.6);
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.9);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top, #1f2937 0, #020617 60%);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+
+/* リンク */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ページ全体 */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===============================
+   ヘッダー
+   =============================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(16px);
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.96),
+    rgba(15, 23, 42, 0.85),
+    transparent
+  );
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.site-header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.site-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+}
+
+.site-subtitle {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.site-nav {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  background: rgba(15, 23, 42, 0.8);
+  text-decoration: none;
+  transition: 0.18s ease;
+}
+
+.site-nav a:hover {
+  border-color: var(--border-strong);
+  color: #f9fafb;
+  background: rgba(15, 23, 42, 0.95);
+}
+
+/* ===============================
+   レイアウト（メイン + サイドバー）
+   =============================== */
+
+.layout {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column; /* モバイルでは縦並び */
+  gap: 16px;
+}
+
+/* メインコンテンツ */
+
+.main-content {
+  flex: 2;
+}
+
+/* 記事 */
+
+.post {
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  padding: 18px 18px 22px;
+  box-shadow: var(--shadow-soft);
+}
+
+.post-title {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.post-meta {
+  margin: 0 0 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.post p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.post ul {
+  padding-left: 20px;
+}
+
+.post code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9em;
+  background: rgba(15, 23, 42, 0.9);
+  padding: 1px 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+/* サイドバー */
+
+.sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 共通: サイドバーのカード */
+
+.sidebar-section {
+  background: rgba(15, 23, 42, 0.96);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  padding: 14px 14px 16px;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.85);
+}
+
+.sidebar-title {
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+
+/* プロフィールカード */
+
+.profile-card {
+  background: radial-gradient(circle at top, #111827 0, #020617 60%);
+}
+
+.profile-name {
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+
+.profile-text {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   カレンダー
+   =============================== */
+
+.calendar-card {
+  background: linear-gradient(
+    145deg,
+    rgba(15, 23, 42, 0.98),
+    rgba(15, 23, 42, 0.92)
+  );
+}
+
+.calendar-root {
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  background: radial-gradient(circle at top, var(--bg-accent-soft), #020617 60%);
+  padding: 10px;
+  font-size: 12px;
+}
+
+/* カレンダーのヘッダー */
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.calendar-month {
+  font-weight: 600;
+}
+
+.calendar-year {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* 曜日行・日付グリッド */
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+/* 日付セル */
+
+.calendar-day {
+  text-align: center;
+  padding: 4px 0;
+  border-radius: 8px;
+  min-height: 24px;
+}
+
+/* 日付があるセル */
+
+.calendar-day--in-month {
+  cursor: default;
+}
+
+/* 今日の日付 */
+
+.calendar-day--today {
+  background: radial-gradient(circle at top, var(--accent-strong), #0369a1);
+  color: #ecfeff;
+  font-weight: 600;
+}
+
+/* 土日用の軽い色分け */
+
+.calendar-day--sun {
+  color: #fca5a5;
+}
+
+.calendar-day--sat {
+  color: #93c5fd;
+}
+
+/* 空白（前後月の埋め用） */
+
+.calendar-day--empty {
+  opacity: 0.2;
+}
+
+/* カレンダーの補足 */
+
+.calendar-note {
+  margin-top: 6px;
+  margin-bottom: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   フッター
+   =============================== */
+
+.site-footer {
+  margin-top: auto;
+  padding: 14px 16px 20px;
+  font-size: 11px;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  text-align: center;
+}
+
+/* ===============================
+   レスポンシブ（幅768px〜）
+   =============================== */
+
+@media (min-width: 768px) {
+  .layout {
+    flex-direction: row; /* 横並びに切り替え */
+  }
+
+  .main-content {
+    flex: 3;
+  }
+
+  .sidebar {
+    flex: 1.4;
+  }
+
+  .site-title {
+    font-size: 22px;
+  }
+}
