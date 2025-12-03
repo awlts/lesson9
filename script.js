@@ -1,154 +1,105 @@
-// ページ読み込み時
 document.addEventListener("DOMContentLoaded", () => {
   setupCalendar();
   setupMemo();
 });
 
-/* ===== カレンダー ===== */
+/* ========= カレンダー ========= */
 
 function setupCalendar() {
-  const calendarRoot = document.getElementById("calendar-root");
-  if (!calendarRoot) return;
-
+  const root = document.getElementById("calendar-root");
   const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth(); // 0-11
-
-  renderCalendar(calendarRoot, year, month, today);
+  renderCalendar(root, today);
 }
 
-function renderCalendar(root, year, month, today) {
+function renderCalendar(root, today) {
   root.innerHTML = "";
 
-  const monthName = new Intl.DateTimeFormat("ja-JP", {
-    month: "long",
-  }).format(new Date(year, month, 1));
+  const year = today.getFullYear();
+  const month = today.getMonth();
 
   const header = document.createElement("div");
   header.className = "calendar-header";
-
-  const monthSpan = document.createElement("div");
-  monthSpan.className = "calendar-month";
-  monthSpan.textContent = monthName;
-
-  const yearSpan = document.createElement("div");
-  yearSpan.className = "calendar-year";
-  yearSpan.textContent = String(year);
-
-  header.appendChild(monthSpan);
-  header.appendChild(yearSpan);
+  header.innerHTML = `
+    <div>${month + 1}月</div>
+    <div>${year}</div>
+  `;
   root.appendChild(header);
 
   const grid = document.createElement("div");
   grid.className = "calendar-grid";
 
-  const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
-  weekdays.forEach((w) => {
-    const wd = document.createElement("div");
-    wd.className = "calendar-weekday";
-    wd.textContent = w;
-    grid.appendChild(wd);
-  });
+  const first = new Date(year, month, 1);
+  const last = new Date(year, month + 1, 0);
 
-  const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
-  const startWeekday = firstDay.getDay();
-  const daysInMonth = lastDay.getDate();
-
-  for (let i = 0; i < startWeekday; i++) {
-    const emptyCell = document.createElement("div");
-    emptyCell.className = "calendar-day calendar-day--empty";
-    grid.appendChild(emptyCell);
+  for (let i = 0; i < first.getDay(); i++) {
+    grid.appendChild(document.createElement("div"));
   }
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dateCell = document.createElement("div");
-    dateCell.className = "calendar-day calendar-day--in-month";
+  for (let d = 1; d <= last.getDate(); d++) {
+    const cell = document.createElement("div");
+    cell.className = "calendar-day";
+    cell.textContent = d;
 
-    const dateObj = new Date(year, month, day);
-    const weekday = dateObj.getDay();
-
-    if (weekday === 0) dateCell.classList.add("calendar-day--sun");
-    if (weekday === 6) dateCell.classList.add("calendar-day--sat");
-
-    if (
-      dateObj.getFullYear() === today.getFullYear() &&
-      dateObj.getMonth() === today.getMonth() &&
-      dateObj.getDate() === today.getDate()
-    ) {
-      dateCell.classList.add("calendar-day--today");
+    if (d === today.getDate()) {
+      cell.classList.add("calendar-day--today");
     }
 
-    dateCell.textContent = String(day);
-    grid.appendChild(dateCell);
+    grid.appendChild(cell);
   }
 
   root.appendChild(grid);
 }
 
-/* ===== メモ ===== */
+/* ========= メモ ========= */
 
 function setupMemo() {
   const form = document.getElementById("memo-form");
   const input = document.getElementById("memo-input");
   const list = document.getElementById("memo-list");
 
-  if (!form || !input || !list) return;
-
-  // ローカルストレージから復元
   const saved = loadMemos();
-  saved.forEach((text) => {
-    appendMemoItem(list, text);
-  });
+  saved.forEach((t) => addMemo(list, t));
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const text = input.value.trim();
     if (!text) return;
 
-    appendMemoItem(list, text);
+    addMemo(list, text);
     saveMemos(list);
     input.value = "";
   });
 }
 
-function appendMemoItem(list, text) {
+function addMemo(list, text) {
   const li = document.createElement("li");
   li.className = "memo-item";
 
   const span = document.createElement("span");
-  span.className = "memo-text";
   span.textContent = text;
 
-  const delBtn = document.createElement("button");
-  delBtn.className = "memo-delete";
-  delBtn.type = "button";
-  delBtn.textContent = "×";
+  const del = document.createElement("button");
+  del.textContent = "×";
+  del.className = "memo-delete";
 
-  delBtn.addEventListener("click", () => {
+  del.addEventListener("click", () => {
     list.removeChild(li);
     saveMemos(list);
   });
 
   li.appendChild(span);
-  li.appendChild(delBtn);
+  li.appendChild(del);
   list.appendChild(li);
 }
 
 function saveMemos(list) {
-  const items = [...list.querySelectorAll(".memo-text")].map(
-    (el) => el.textContent ?? ""
-  );
-  localStorage.setItem("simple_memo_list", JSON.stringify(items));
+  const texts = [...list.querySelectorAll("span")].map((e) => e.textContent);
+  localStorage.setItem("memo_data", JSON.stringify(texts));
 }
 
 function loadMemos() {
   try {
-    const raw = localStorage.getItem("simple_memo_list");
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) return parsed;
-    return [];
+    return JSON.parse(localStorage.getItem("memo_data")) || [];
   } catch {
     return [];
   }
