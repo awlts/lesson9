@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>Simple Memo + Calendar</title>
+  <title>Simple Notes + Calendar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,7 +13,6 @@
       <div class="site-header-inner">
         <div class="site-title-block">
           <h1 class="site-title">My Notes</h1>
-          <p class="site-subtitle">メモ & カレンダー</p>
         </div>
         <nav class="site-nav">
           <a href="#main">記事</a>
@@ -23,22 +22,24 @@
       </div>
     </header>
 
-    <!-- メイン + サイドバー -->
+    <!-- メインレイアウト -->
     <main class="layout">
-      <!-- メインコンテンツ -->
+      
+      <!-- メイン記事 -->
       <article id="main" class="main-content">
         <section class="post">
           <h2 class="post-title">タイトル</h2>
           <p class="post-meta">2025-12-04</p>
 
-          <p>文章を書くスペース。</p>
-          <p>必要な内容だけを書きます。</p>
+          <p>ここに自由な文章を記述できます。</p>
+          <p>説明文は削除してシンプルな本文だけにしています。</p>
         </section>
       </article>
 
-      <!-- サイドバー -->
+      <!-- サイドバー（メモ + カレンダー） -->
       <aside class="sidebar">
-        <!-- メモ -->
+
+        <!-- メモ欄 -->
         <section id="memo" class="sidebar-section memo-card">
           <h2 class="sidebar-title">メモ</h2>
 
@@ -52,18 +53,15 @@
             <button type="submit" class="memo-add-button">追加</button>
           </form>
 
-          <ul id="memo-list" class="memo-list">
-            <!-- JS でメモを追加 -->
-          </ul>
+          <ul id="memo-list" class="memo-list"></ul>
         </section>
 
         <!-- カレンダー -->
         <section id="calendar" class="sidebar-section calendar-card">
           <h2 class="sidebar-title">カレンダー</h2>
-          <div id="calendar-root" class="calendar-root">
-            <!-- JS でカレンダーを描画 -->
-          </div>
+          <div id="calendar-root" class="calendar-root"></div>
         </section>
+
       </aside>
     </main>
 
